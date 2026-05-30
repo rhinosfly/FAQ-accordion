@@ -1,12 +1,48 @@
+:root {
+  --purple-bright: hsl(275, 100%, 97%);
+  --purple-medium: hsl(292, 16%, 49%);
+  --purple-dark: hsl(292, 42%, 14%);
+  --weight-1: 400;
+  --weight-2: 600;
+  --weight-3: 700;
+}
+
+body {
+  background-image: url("assets/images/background-pattern-desktop.svg");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-color: var(--purple-bright);
+}
+
+/* center card */
+html,
+body {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* for toggling state fo dropdown */
 .hidden {
   display: none;
 }
 
+/* main */
 .faq-card {
   width: 500px;
+  border-radius: 20px;
+  padding: 20px;
+  font-family: "Work Sans", sans-serif;
+  font-weight: var(--weight-1);
+  font-style: normal;
+  background-color: white;
 
   .header {
     display: flex;
+    column-gap: 20px;
+    color: var(--purple-dark);
+    font-size: 25px;
   }
 }
 
@@ -15,8 +51,20 @@
   .shield {
     display: flex;
 
+    .question {
+      font-size: 20px;
+      color: var(--purple-dark);
+    }
+
     .dropdown-toggle-button {
       margin-left: auto;
+    }
+  }
+
+  .dropdown {
+    .answer {
+      font-size: 16px;
+      color: var(--purple-medium)
     }
   }
 
