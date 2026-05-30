@@ -1,3 +1,7 @@
+.hidden {
+  display: none;
+}
+
 .faq-card {
   width: 500px;
 

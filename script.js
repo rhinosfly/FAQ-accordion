@@ -1,3 +1,5 @@
+// templating =================================
+
 class FaqItem {
   constructor(question, answer) {
     this.question = question;
@@ -34,3 +36,34 @@ FAQ_ITEMS.forEach((data) => {
     card.appendChild(dropdown_item);
   }
 });
+
+//dropdown toggling ==================================
+
+let faqs = document.getElementsByClassName("faq-dropdown-item");
+for (let faq of faqs) {
+  //initialized to true
+  faq.is_active = true;
+  // function on faq_card, to run when it's button is clicked
+  faq.toggle_state = function () {
+    //toggle dropdown hidden state
+    dropdown = this.getElementsByClassName("dropdown")[0];
+    dropdown.classList.toggle("hidden");
+    //change icon
+    const plus = "assets/images/icon-plus.svg";
+    const minus = "assets/images/icon-minus.svg";
+    let button = this.getElementsByClassName("dropdown-toggle-button")[0];
+    // toggle flag
+    this.is_active = !this.is_active;
+    if (this.is_active) {
+      button.src = minus;
+    } else {
+      button.src = plus;
+    }
+  };
+
+  // attatch function to child buttons callback
+  let button = faq.getElementsByClassName("dropdown-toggle-button")[0];
+  button.addEventListener("click", function () {
+    faq.toggle_state();
+  });
+}
