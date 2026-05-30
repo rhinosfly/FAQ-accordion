@@ -9,6 +9,7 @@ class FaqItem {
     // setup data
     this.question = question;
     this.answer = answer;
+    this.dropdown_is_active = true;
   }
 
   init_HTML(parent) {
@@ -16,11 +17,36 @@ class FaqItem {
     this.html_element = template_instance.firstElementChild;
     this.render();
     parent.appendChild(template_instance);
+
+    // set button
+    let button = this.html_element.getElementsByClassName(
+      "dropdown-toggle-button",
+    )[0];
+    button.addEventListener("click", this.toggle_dropdown.bind(this));
   }
 
   render() {
     this.html_element.querySelector(".question").textContent = this.question;
     this.html_element.querySelector(".answer").textContent = this.answer;
+  }
+
+  toggle_dropdown() {
+    //toggle dropdown hidden state
+    let dropdown = this.html_element.getElementsByClassName("dropdown")[0];
+    dropdown.classList.toggle("hidden");
+    //change icon
+    const plus = "assets/images/icon-plus.svg";
+    const minus = "assets/images/icon-minus.svg";
+    let button = this.html_element.getElementsByClassName(
+      "dropdown-toggle-button",
+    )[0];
+    // toggle flag
+    this.dropdown_is_active = !this.dropdown_is_active;
+    if (this.dropdown_is_active) {
+      button.src = minus;
+    } else {
+      button.src = plus;
+    }
   }
 }
 
@@ -50,34 +76,3 @@ let faq_card = document.getElementsByClassName("faq-card")[0];
 FAQ_ITEMS.forEach((faq_item) => {
   faq_item.init_HTML(faq_card);
 });
-
-//dropdown toggling ==================================
-
-let faqs = document.getElementsByClassName("faq-dropdown-item");
-for (let faq of faqs) {
-  //initialized to true
-  faq.is_active = true;
-  // function on faq_card, to run when it's button is clicked
-  faq.toggle_state = function () {
-    //toggle dropdown hidden state
-    dropdown = this.getElementsByClassName("dropdown")[0];
-    dropdown.classList.toggle("hidden");
-    //change icon
-    const plus = "assets/images/icon-plus.svg";
-    const minus = "assets/images/icon-minus.svg";
-    let button = this.getElementsByClassName("dropdown-toggle-button")[0];
-    // toggle flag
-    this.is_active = !this.is_active;
-    if (this.is_active) {
-      button.src = minus;
-    } else {
-      button.src = plus;
-    }
-  };
-
-  // attatch function to child buttons callback
-  let button = faq.getElementsByClassName("dropdown-toggle-button")[0];
-  button.addEventListener("click", function () {
-    faq.toggle_state();
-  });
-}
