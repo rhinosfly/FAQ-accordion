@@ -24,10 +24,13 @@ const FAQ_ITEMS = [
   ),
 ];
 
-let template = document.getElementById("faq-dropdown-item").content;
+let dropdown_template = document.getElementById("faq-dropdown-item").content;
+let faq_cards = document.getElementsByClassName("faq-card");
 FAQ_ITEMS.forEach((data) => {
-  const clone = template.cloneNode(true);
-  clone.querySelector(".question").textContent = data.question;
-  clone.querySelector(".answer").textContent = data.answer;
-  document.body.appendChild(clone);
+  const dropdown_item = dropdown_template.cloneNode(true);
+  dropdown_item.querySelector(".question").textContent = data.question;
+  dropdown_item.querySelector(".answer").textContent = data.answer;
+  for (const card of faq_cards) {
+    card.appendChild(dropdown_item);
+  }
 });

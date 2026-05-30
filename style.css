@@ -1,0 +1,19 @@
+.faq-card {
+  width: 500px;
+
+  .header {
+    display: flex;
+  }
+}
+
+.faq-dropdown-item {
+
+  .shield {
+    display: flex;
+
+    .dropdown-toggle-button {
+      margin-left: auto;
+    }
+  }
+
+}

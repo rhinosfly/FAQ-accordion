@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
   <title>Frontend Mentor | FAQ accordion</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -17,10 +18,15 @@
     </div>
   </article>
 
-  <template id=faq-dropdown-item>
-    <div class=faq-dropdown-item>
-      <h1 class="question">question placeholder</h1>
-      <p class="answer">answer placeholder</p>
+  <template id="faq-dropdown-item">
+    <div class="faq-dropdown-item">
+      <div class="shield">
+        <h1 class="question">question placeholder</h1>
+        <img class="dropdown-toggle-button" src="assets/images/icon-minus.svg" , alt="dropdown-toggle-button">
+      </div>
+      <div class="dropdown">
+        <p class="answer">answer placeholder</p>
+      </div>
     </div>
   </template>
 
