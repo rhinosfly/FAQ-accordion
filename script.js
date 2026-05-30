@@ -1,12 +1,30 @@
 // templating =================================
 
+// class to store data
 class FaqItem {
+  static TEMPLETE_ID = "faq-dropdown-item";
+  static template = document.getElementById(this.TEMPLETE_ID).content;
+
   constructor(question, answer) {
+    // setup data
     this.question = question;
     this.answer = answer;
   }
+
+  init_HTML(parent) {
+    const template_instance = FaqItem.template.cloneNode(true);
+    this.html_element = template_instance.firstElementChild;
+    this.render();
+    parent.appendChild(template_instance);
+  }
+
+  render() {
+    this.html_element.querySelector(".question").textContent = this.question;
+    this.html_element.querySelector(".answer").textContent = this.answer;
+  }
 }
 
+// actual data to put in templates
 const FAQ_ITEMS = [
   new FaqItem(
     "What is Frontend Mentor, and how will it help me?",
@@ -26,15 +44,11 @@ const FAQ_ITEMS = [
   ),
 ];
 
-let dropdown_template = document.getElementById("faq-dropdown-item").content;
-let faq_cards = document.getElementsByClassName("faq-card");
-FAQ_ITEMS.forEach((data) => {
-  const dropdown_item = dropdown_template.cloneNode(true);
-  dropdown_item.querySelector(".question").textContent = data.question;
-  dropdown_item.querySelector(".answer").textContent = data.answer;
-  for (const card of faq_cards) {
-    card.appendChild(dropdown_item);
-  }
+// create templates
+let faq_card = document.getElementsByClassName("faq-card")[0];
+
+FAQ_ITEMS.forEach((faq_item) => {
+  faq_item.init_HTML(faq_card);
 });
 
 //dropdown toggling ==================================
