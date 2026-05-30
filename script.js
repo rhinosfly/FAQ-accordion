@@ -1,6 +1,3 @@
-// templating =================================
-
-// class to store data
 class FaqItem {
   static TEMPLETE_ID = "faq-dropdown-item";
   static template = document.getElementById(this.TEMPLETE_ID).content;
@@ -13,44 +10,45 @@ class FaqItem {
   }
 
   init_HTML(parent) {
+    // create html element
     const template_instance = FaqItem.template.cloneNode(true);
     this.html_element = template_instance.firstElementChild;
+    // set up property shortcuts
+    this.html_question = this.html_element.querySelector(".question");
+    this.html_answer = this.html_element.querySelector(".answer");
+    this.html_dropdown = this.html_element.querySelector(".dropdown");
+    this.html_button = this.html_element.querySelector(
+      ".dropdown-toggle-button",
+    );
+    // set up DOM object
+    this.html_button.addEventListener("click", this.toggle_dropdown.bind(this));
     this.render();
+    // add to DOM
     parent.appendChild(template_instance);
-
-    // set button
-    let button = this.html_element.getElementsByClassName(
-      "dropdown-toggle-button",
-    )[0];
-    button.addEventListener("click", this.toggle_dropdown.bind(this));
   }
 
   render() {
-    this.html_element.querySelector(".question").textContent = this.question;
-    this.html_element.querySelector(".answer").textContent = this.answer;
+    this.html_question.textContent = this.question;
+    this.html_answer.textContent = this.answer;
   }
 
   toggle_dropdown() {
     //toggle dropdown hidden state
-    let dropdown = this.html_element.getElementsByClassName("dropdown")[0];
-    dropdown.classList.toggle("hidden");
+    this.html_dropdown.classList.toggle("hidden");
     //change icon
     const plus = "assets/images/icon-plus.svg";
     const minus = "assets/images/icon-minus.svg";
-    let button = this.html_element.getElementsByClassName(
-      "dropdown-toggle-button",
-    )[0];
     // toggle flag
     this.dropdown_is_active = !this.dropdown_is_active;
     if (this.dropdown_is_active) {
-      button.src = minus;
+      this.html_button.src = minus;
     } else {
-      button.src = plus;
+      this.html_button.src = plus;
     }
   }
 }
 
-// actual data to put in templates
+// define data
 const FAQ_ITEMS = [
   new FaqItem(
     "What is Frontend Mentor, and how will it help me?",
@@ -70,8 +68,8 @@ const FAQ_ITEMS = [
   ),
 ];
 
-// create templates
-let faq_card = document.getElementsByClassName("faq-card")[0];
+// initialze html template objects
+let faq_card = document.querySelector(".faq-card");
 
 FAQ_ITEMS.forEach((faq_item) => {
   faq_item.init_HTML(faq_card);
