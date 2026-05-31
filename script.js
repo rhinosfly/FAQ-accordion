@@ -12,38 +12,39 @@ class FaqItem {
   init_HTML(parent) {
     // create html element
     const template_instance = FaqItem.template.cloneNode(true);
-    this.html_element = template_instance.firstElementChild;
+    const html_element = template_instance.firstElementChild;
     // set up property shortcuts
-    this.html_question = this.html_element.querySelector(".question");
-    this.html_answer = this.html_element.querySelector(".answer");
-    this.html_dropdown = this.html_element.querySelector(".dropdown");
-    this.html_button = this.html_element.querySelector(
-      ".dropdown-toggle-button",
-    );
+    this.html = {
+      root: html_element,
+      question: html_element.querySelector(".question"),
+      answer: html_element.querySelector(".answer"),
+      dropdown: html_element.querySelector(".dropdown"),
+      button: html_element.querySelector(".dropdown-toggle-button"),
+    };
     // set up DOM object
-    this.html_button.addEventListener("click", this.toggle_dropdown.bind(this));
+    this.html.button.addEventListener("click", this.toggle_dropdown.bind(this));
     this.render();
     // add to DOM
     parent.appendChild(template_instance);
   }
 
   render() {
-    this.html_question.textContent = this.question;
-    this.html_answer.textContent = this.answer;
+    this.html.question.textContent = this.question;
+    this.html.answer.textContent = this.answer;
   }
 
   toggle_dropdown() {
     //toggle dropdown hidden state
-    this.html_dropdown.classList.toggle("hidden");
+    this.html.dropdown.classList.toggle("hidden");
     //change icon
     const plus = "assets/images/icon-plus.svg";
     const minus = "assets/images/icon-minus.svg";
     // toggle flag
     this.dropdown_is_active = !this.dropdown_is_active;
     if (this.dropdown_is_active) {
-      this.html_button.src = minus;
+      this.html.button.src = minus;
     } else {
-      this.html_button.src = plus;
+      this.html.button.src = plus;
     }
   }
 }
